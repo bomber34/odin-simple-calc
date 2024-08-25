@@ -76,6 +76,10 @@ function updateResultLabel(output) {
     resultLabel.textContent = output;
 }
 
+function operateOnObj(obj) {
+    return operate(obj.lhs, obj.chosenOperation, obj.rhs);
+}
+
 function operate(x, op, y) {
     if ([x, op, y].some((val) => val === '')) {
         return 0;
@@ -104,8 +108,21 @@ function operate(x, op, y) {
 
 function chooseOperationBtnClick(chosenOp) {
     if (mathObj.lhs !== '') {
+
+        if (mathObj.rhs !== '' && mathObj.chosenOperation !== '') {
+            displayResult();
+        }
+
         mathObj.chosenOperation = chosenOp;
         mathObj.rhs = '';
+    }
+}
+
+function handleResult(res) {
+    if (typeof res === 'string') {
+        clearOp();
+    } else {
+        mathObj.lhs = parseFloat(res);
     }
 }
 
@@ -117,13 +134,9 @@ function clearOp() {
 }
 
 function displayResult() {
-    const opRes = operate(mathObj.lhs, mathObj.chosenOperation, mathObj.rhs);
+    const opRes = operateOnObj(mathObj);
 
-    if (typeof opRes === 'string') {
-        clearOp();
-    } else {
-        mathObj.lhs = parseFloat(opRes);
-    }
+    handleResult(opRes);
 
     updateResultLabel(opRes);
 }
