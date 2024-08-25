@@ -118,11 +118,12 @@ function clearOp() {
 
 function displayResult() {
     const opRes = operate(mathObj.lhs, mathObj.chosenOperation, mathObj.rhs);
-    resultLabel.textContent = opRes;
 
     if (typeof opRes === 'string') {
         clearOp();
     } else {
         mathObj.lhs = parseFloat(opRes);
     }
+
+    updateResultLabel(opRes);
 }
