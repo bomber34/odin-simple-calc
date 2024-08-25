@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <title>Simple Calculator</title>
+    <script src="./calcLogic.js" defer></script>
 </head>
 <body>
     <div id="calculator">
@@ -14,25 +15,25 @@
         </div>
         <div id="buttons">
             <div id="digits">
-                <button>9</button>
-                <button>8</button>
-                <button>7</button>
-                <button>6</button>
-                <button>5</button>
-                <button>4</button>
-                <button>3</button>
-                <button>2</button>
-                <button>1</button>
-                <button>.</button>
-                <button>0</button>
+                <button onclick="addDigitToNumber('9')">9</button>
+                <button onclick="addDigitToNumber('8')">8</button>
+                <button onclick="addDigitToNumber('7')">7</button>
+                <button onclick="addDigitToNumber('6')">6</button>
+                <button onclick="addDigitToNumber('5')">5</button>
+                <button onclick="addDigitToNumber('4')">4</button>
+                <button onclick="addDigitToNumber('3')">3</button>
+                <button onclick="addDigitToNumber('2')">2</button>
+                <button onclick="addDigitToNumber('1')">1</button>
+                <button onclick="addDigitToNumber('.')">.</button>
+                <button onclick="addDigitToNumber('0')">0</button>
             </div>
             <div id="operations">
-                <button>CE</button>
-                <button>/</button>
-                <button>*</button>
-                <button>-</button>
-                <button>+</button>
-                <button>=</button>
+                <button onclick="clearOp()">CE</button>
+                <button onclick="chooseOperationBtnClick('/')">/</button>
+                <button onclick="chooseOperationBtnClick('*')">*</button>
+                <button onclick="chooseOperationBtnClick('-')">-</button>
+                <button onclick="chooseOperationBtnClick('+')">+</button>
+                <button onclick="displayResult()">=</button>
             </div>
         </div>
     </div>
