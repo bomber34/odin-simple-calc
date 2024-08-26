@@ -3,7 +3,8 @@ const resultLabel = document.getElementById("result");
 const mathObj = {
     lhs: '',
     chosenOperation: '',
-    rhs: ''
+    rhs: '',
+    isChained: false
 }
 const validOperations = ['+', '-', '*', '/'];
 
@@ -51,7 +52,7 @@ function addDigitToMathObj(digit, currentNum) {
 }
 
 function handleDot(digit, currentNum) {
-    if (currentNum == '') {
+    if (currentNum == '' || currentNum == '0') {
         currentNum = digit == '.' ? "0." : digit;
     }
     return currentNum;
@@ -60,7 +61,7 @@ function handleDot(digit, currentNum) {
 function isSpecialInput(digit, currentNum) {
     const dot = '.'
     return currentNum === ''
-        || (currentNum === '0' && digit === '0')
+        || currentNum === '0'
         || (digit == dot && currentNum.split('').includes(dot));
 }
 
@@ -69,6 +70,7 @@ function updateObjNumber(number, isLhs) {
         mathObj.lhs = number;
     } else {
         mathObj.rhs = number
+        mathObj.isChained = true;
     }
 }
 
@@ -109,8 +111,10 @@ function operate(x, op, y) {
 function chooseOperationBtnClick(chosenOp) {
     if (mathObj.lhs !== '') {
 
-        if (mathObj.rhs !== '' && mathObj.chosenOperation !== '') {
-            displayResult();
+        if (mathObj.isChained
+            && mathObj.rhs !== '' 
+            && mathObj.chosenOperation !== '') {
+            displayResult(true);
         }
 
         mathObj.chosenOperation = chosenOp;
@@ -133,10 +137,9 @@ function clearOp() {
     updateResultLabel("0");
 }
 
-function displayResult() {
+function displayResult(isChained) {
     const opRes = operateOnObj(mathObj);
-
     handleResult(opRes);
-
     updateResultLabel(opRes);
+    mathObj.isChained = isChained;
 }
