@@ -1,5 +1,5 @@
 const resultLabel = document.getElementById("result");
-const MAX_DISPLAY_LEN = 23;
+const MAX_DISPLAY_LEN = 20;
 
 const mathObj = {
     lhs: '',

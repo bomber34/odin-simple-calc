@@ -16,10 +16,18 @@
     width: 230px;
     height: 50px;
     text-align: right;
+    line-height: 2px;
+}
+
+#helperInfo {
+    color: gray;
+    font-size: 14px;
+    padding-right: 5px;
 }
 
 #result {
     padding-right: 5px;
+    font-size: 20px;
     
 }
 
