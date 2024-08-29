@@ -29,6 +29,20 @@ function divide(x, y) {
     return x / y;
 }
 
+function removeLastDigit() {
+    let displayNum = mathObj.lhs;
+    if (mathObj.rhs === '') {
+        mathObj.lhs = mathObj.lhs.slice(0, mathObj.lhs.length-1);
+        mathObj.lhs = mathObj.lhs === '' ? '0' : mathObj.lhs
+        displayNum = mathObj.lhs;
+    } else if (mathObj.isChained) {
+        mathObj.rhs = mathObj.rhs.slice(0, mathObj.rhs.length-1);
+        mathObj.rhs = mathObj.rhs === '' ? '0' : mathObj.rhs
+        displayNum = mathObj.rhs;
+    }
+    updateResultLabel(displayNum);
+}
+
 function addDigitToNumber(digit) {
     let output = "0";
     let isLhs = false;
