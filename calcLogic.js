@@ -1,6 +1,7 @@
 const resultLabel = document.getElementById("result");
 const previousInfo = document.getElementById("helperInfo");
-const MAX_DISPLAY_LEN = 20;
+const MAX_RESULT_LEN = 16;
+const MAX_PREV_CALC_LEN = 25;
 
 const mathObj = {
     lhs: '',
@@ -58,7 +59,7 @@ function addDigitToNumber(digit) {
 }
 
 function addDigitToMathObj(digit, currentNum) {
-    if (currentNum.length >= MAX_DISPLAY_LEN) {
+    if (currentNum.length >= MAX_RESULT_LEN) {
         currentNum = currentNum.slice(0, -1);
     }
     const dot = '.'
@@ -109,12 +110,17 @@ function updatePreviousInfo(left, op, right) {
     if (right !== undefined) {
         previousInfo.textContent += ` ${right}`;
     }
+
+    if (previousInfo.textContent.length > MAX_PREV_CALC_LEN) {
+        const startIndex = previousInfo.textContent.length - MAX_PREV_CALC_LEN - 3;
+        previousInfo.textContent = "..." + previousInfo.textContent.slice(startIndex);
+    }
 }
 
 function updateResultLabel(output) {
     if (typeof output == "number") {
         let displayableNum = `${output}`;
-        let overSpaceLen = displayResult.length - MAX_DISPLAY_LEN;
+        let overSpaceLen = displayResult.length - MAX_RESULT_LEN;
         if (displayableNum.charAt(displayableNum.length-overSpaceLen == '.')) {
             overSpaceLen++;
         }

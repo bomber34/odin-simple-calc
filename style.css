@@ -26,7 +26,7 @@
     color: gray;
     font-size: 14px;
     padding-right: 5px;
-    white-space: pre-wrap;
+    white-space: pre;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
