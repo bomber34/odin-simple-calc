@@ -7,7 +7,7 @@ const mathObj = {
     rhs: '',
     isChained: false
 }
-const validOperations = ['+', '-', '*', '/'];
+const VALID_OPERATIONS = ['+', '-', '*', '/'];
 
 function add(x, y) {
     return x + y;
@@ -177,3 +177,20 @@ function displayResult(isChained) {
     updateResultLabel(opRes);
     mathObj.isChained = isChained;
 }
+
+document.querySelector("body").addEventListener("keydown", (event) => {
+    const pressedKey = event.key
+    if (VALID_OPERATIONS.includes(pressedKey)) {
+        chooseOperationBtnClick(pressedKey);
+    } else if (parseInt(pressedKey) >= 0) {
+        addDigitToNumber(pressedKey);
+    } else if (pressedKey == '.') {
+        addDigitToNumber(pressedKey);
+    } else if (pressedKey == '=' || pressedKey == "Enter") {
+        displayResult(false);
+    } else if (pressedKey == "Escape") {
+        clearOp()
+    } else if (pressedKey == "Backspace") {
+        removeLastDigit();
+    }
+})
