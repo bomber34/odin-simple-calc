@@ -1,4 +1,5 @@
 const resultLabel = document.getElementById("result");
+const previousInfo = document.getElementById("helperInfo");
 const MAX_DISPLAY_LEN = 20;
 
 const mathObj = {
@@ -93,6 +94,23 @@ function updateObjNumber(number, isLhs) {
     }
 }
 
+function clearPreviousInfo() {
+    previousInfo.textContent = " ";
+}
+
+function updatePreviousInfo(left, op, right) {
+    const lastSymbol = previousInfo.textContent.charAt(previousInfo.textContent.length-1);
+    if (VALID_OPERATIONS.includes(lastSymbol)) {
+        previousInfo.textContent.slice(0, previousInfo.textContent.length-1);
+    }
+
+    previousInfo.textContent = `${left} ${op}`;
+
+    if (right !== undefined) {
+        previousInfo.textContent += ` ${right}`;
+    }
+}
+
 function updateResultLabel(output) {
     if (typeof output == "number") {
         let displayableNum = `${output}`;
@@ -152,6 +170,7 @@ function chooseOperationBtnClick(chosenOp) {
 
         mathObj.chosenOperation = chosenOp;
         mathObj.rhs = '';
+        updatePreviousInfo(mathObj.lhs, chosenOp);
     }
 }
 
@@ -169,10 +188,12 @@ function clearOp() {
         mathObj[prop] = '';
     }
     updateResultLabel("0");
+    clearPreviousInfo();
 }
 
 function displayResult(isChained) {
     const opRes = operateOnObj(mathObj);
+    updatePreviousInfo(mathObj.lhs, mathObj.chosenOperation, mathObj.rhs);
     handleResult(opRes);
     updateResultLabel(opRes);
     mathObj.isChained = isChained;
@@ -194,3 +215,5 @@ document.querySelector("body").addEventListener("keydown", (event) => {
         removeLastDigit();
     }
 })
+
+previousInfo.textContent = " "
