@@ -11,6 +11,7 @@ const mathObj = {
 }
 const VALID_OPERATIONS = ['+', '-', '*', '/'];
 
+// Actual math part
 function add(x, y) {
     return x + y;
 }
@@ -31,6 +32,7 @@ function divide(x, y) {
     return x / y;
 }
 
+// String operations for number inputs
 function removeLastDigit() {
     let displayNum = mathObj.lhs;
     if (mathObj.rhs === '') {
@@ -95,6 +97,77 @@ function updateObjNumber(number, isLhs) {
     }
 }
 
+function operateOnObj(obj) {
+    return operate(obj.lhs, obj.chosenOperation, obj.rhs);
+}
+
+function operate(x, op, y) {
+    if ([x, op, y].some((val) => val === '')) {
+        return 0;
+    }
+    [x, y] = [x, y].map((val) => parseFloat(val));
+
+    let func;
+    switch (op) {
+        case '+':
+            func = add;
+            break;
+        case '-':
+            func = subtract;
+            break;
+        case '*':
+            func = multiply;
+            break;
+        case '/':
+            func = divide;
+            break;
+        default:
+            return "UNSUPPORTED OPERATION";
+    }
+    return func(x, y);
+}
+
+function clearOp() {
+    for (let prop in mathObj) {
+        mathObj[prop] = '';
+    }
+    updateResultLabel("0");
+    clearPreviousInfo();
+}
+
+function handleResult(res) {
+    if (typeof res === 'string') {
+        clearOp();
+    } else {
+        mathObj.lhs = parseFloat(res);
+
+    }
+}
+
+function displayResult(isChained) {
+    const opRes = operateOnObj(mathObj);
+    updatePreviousInfo(mathObj.lhs, mathObj.chosenOperation, mathObj.rhs);
+    handleResult(opRes);
+    updateResultLabel(opRes);
+    mathObj.isChained = isChained;
+}
+
+// UI Functions
+function chooseOperationBtnClick(chosenOp) {
+    if (mathObj.lhs !== '') {
+
+        if (mathObj.isChained
+            && mathObj.rhs !== '' 
+            && mathObj.chosenOperation !== '') {
+            displayResult(true);
+        }
+
+        mathObj.chosenOperation = chosenOp;
+        mathObj.rhs = '';
+        updatePreviousInfo(mathObj.lhs, chosenOp);
+    }
+}
+
 function clearPreviousInfo() {
     previousInfo.textContent = " ";
 }
@@ -135,76 +208,6 @@ function updateResultLabel(output) {
     resultLabel.textContent = output;
 }
 
-function operateOnObj(obj) {
-    return operate(obj.lhs, obj.chosenOperation, obj.rhs);
-}
-
-function operate(x, op, y) {
-    if ([x, op, y].some((val) => val === '')) {
-        return 0;
-    }
-    [x, y] = [x, y].map((val) => parseFloat(val));
-
-    let func;
-    switch (op) {
-        case '+':
-            func = add;
-            break;
-        case '-':
-            func = subtract;
-            break;
-        case '*':
-            func = multiply;
-            break;
-        case '/':
-            func = divide;
-            break;
-        default:
-            return "UNSUPPORTED OPERATION";
-    }
-    return func(x, y);
-}
-
-function chooseOperationBtnClick(chosenOp) {
-    if (mathObj.lhs !== '') {
-
-        if (mathObj.isChained
-            && mathObj.rhs !== '' 
-            && mathObj.chosenOperation !== '') {
-            displayResult(true);
-        }
-
-        mathObj.chosenOperation = chosenOp;
-        mathObj.rhs = '';
-        updatePreviousInfo(mathObj.lhs, chosenOp);
-    }
-}
-
-function handleResult(res) {
-    if (typeof res === 'string') {
-        clearOp();
-    } else {
-        mathObj.lhs = parseFloat(res);
-
-    }
-}
-
-function clearOp() {
-    for (let prop in mathObj) {
-        mathObj[prop] = '';
-    }
-    updateResultLabel("0");
-    clearPreviousInfo();
-}
-
-function displayResult(isChained) {
-    const opRes = operateOnObj(mathObj);
-    updatePreviousInfo(mathObj.lhs, mathObj.chosenOperation, mathObj.rhs);
-    handleResult(opRes);
-    updateResultLabel(opRes);
-    mathObj.isChained = isChained;
-}
-
 document.querySelector("body").addEventListener("keydown", (event) => {
     const pressedKey = event.key
     if (VALID_OPERATIONS.includes(pressedKey)) {
@@ -222,4 +225,6 @@ document.querySelector("body").addEventListener("keydown", (event) => {
     }
 })
 
+// Initialize UI
 previousInfo.textContent = " "
+resultLabel.textContent = "0";
