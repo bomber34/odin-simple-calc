@@ -215,7 +215,7 @@ document.querySelector("body").addEventListener("keydown", (event) => {
         addDigitToNumber(pressedKey);
     } else if (pressedKey == '=' || pressedKey == "Enter") {
         displayResult(false);
-    } else if (pressedKey == "Escape") {
+    } else if (pressedKey == "Escape" || pressedKey == "Delete") {
         clearOp()
     } else if (pressedKey == "Backspace") {
         removeLastDigit();
