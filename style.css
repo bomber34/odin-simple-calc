@@ -64,3 +64,13 @@
     border-radius: 0px;
     margin-right: 10%;
 }
+
+#removeOps {
+    display: flex;
+    align-items: stretch;
+    margin-right: 10%;
+}
+#removeOps button {
+    margin-right: 0%;
+    flex: 1;
+}

@@ -28,7 +28,10 @@
                 <button onclick="addDigitToNumber('0')">0</button>
             </div>
             <div id="operations">
-                <button onclick="clearOp()">CE</button>
+                <div id="removeOps">
+                    <button onclick="clearOp()">&lt-</button>
+                    <button onclick="clearOp()">CE</button>
+                </div>
                 <button onclick="chooseOperationBtnClick('/')">/</button>
                 <button onclick="chooseOperationBtnClick('*')">*</button>
                 <button onclick="chooseOperationBtnClick('-')">-</button>
