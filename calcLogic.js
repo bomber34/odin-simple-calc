@@ -1,4 +1,5 @@
 const resultLabel = document.getElementById("result");
+const MAX_DISPLAY_LEN = 23;
 
 const mathObj = {
     lhs: '',
@@ -42,12 +43,16 @@ function addDigitToNumber(digit) {
 }
 
 function addDigitToMathObj(digit, currentNum) {
+    if (currentNum.length >= MAX_DISPLAY_LEN) {
+        currentNum = currentNum.slice(0, -1);
+    }
     const dot = '.'
     if (isSpecialInput(digit, currentNum)) {
         currentNum = handleDot(digit, currentNum);
     } else {
         currentNum += digit;
     }
+
     return currentNum;
 }
 
@@ -75,6 +80,20 @@ function updateObjNumber(number, isLhs) {
 }
 
 function updateResultLabel(output) {
+    if (typeof output == "number") {
+        let displayableNum = `${output}`;
+        let overSpaceLen = displayResult.length - MAX_DISPLAY_LEN;
+        if (displayableNum.charAt(displayableNum.length-overSpaceLen == '.')) {
+            overSpaceLen++;
+        }
+
+        if (overSpaceLen > 0) {
+            displayableNum = displayableNum.slice(0, displayableNum.length-overSpaceLen);
+        }
+
+        output = displayableNum;
+    }
+
     resultLabel.textContent = output;
 }
 
@@ -127,6 +146,7 @@ function handleResult(res) {
         clearOp();
     } else {
         mathObj.lhs = parseFloat(res);
+
     }
 }
 

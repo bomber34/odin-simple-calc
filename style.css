@@ -6,37 +6,61 @@
     align-items: center;
     border: 1px gray solid;
     border-radius: 5px;
+
+    padding-bottom: 50px;
 }
 
 #display {
     border: 1px gray solid;
     border-radius: 5px;
-    width: 200px;
+    width: 230px;
     height: 50px;
-    padding: 0px 10px;
     text-align: right;
+}
+
+#result {
+    padding-right: 5px;
+    
 }
 
 #buttons {
     display: flex;
     flex-direction: row;
+    margin-top: 25px;
 }
 
 #digits {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
     flex: 2 1 0;
 }
 
 #digits button {
     flex: 0 0 33.3333%;
+
+    border-radius: 0px;
+    box-shadow: none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 #operations {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: left;
     flex: 1 1 0;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#operations button {
+    background-color: rgb(97, 179, 247);
+    color: white;
+    box-shadow: none;
+    border-radius: 0px;
+    margin-right: 10%;
 }
